@@ -33,6 +33,18 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $firstname;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $lastname;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,5 +121,43 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     * @return User
+     */
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $lastname
+     * @return User
+     */
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
     }
 }
