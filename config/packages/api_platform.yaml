@@ -8,3 +8,6 @@ api_platform:
     collection:
         pagination:
             enabled: false
+    formats:
+        json:
+            mime_types: ['application/json']
