@@ -56,9 +56,20 @@ class User implements UserInterface
      */
     private $favs;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $savingPrice;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Ride::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $rides;
+
     public function __construct()
     {
         $this->favs = new ArrayCollection();
+        $this->rides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +175,49 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($fav->getUser() === $this) {
                 $fav->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSavingPrice(): ?int
+    {
+        return $this->savingPrice;
+    }
+
+    public function setSavingPrice(int $savingPrice): self
+    {
+        $this->savingPrice = $savingPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ride[]
+     */
+    public function getRides(): Collection
+    {
+        return $this->rides;
+    }
+
+    public function addRide(Ride $ride): self
+    {
+        if (!$this->rides->contains($ride)) {
+            $this->rides[] = $ride;
+            $ride->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRide(Ride $ride): self
+    {
+        if ($this->rides->contains($ride)) {
+            $this->rides->removeElement($ride);
+            // set the owning side to null (unless already changed)
+            if ($ride->getUser() === $this) {
+                $ride->setUser(null);
             }
         }
 

@@ -3,8 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Fav;
+use App\Entity\Option;
 use App\Entity\Place;
 use App\Entity\User;
+use App\Entity\Vtc;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -29,7 +31,8 @@ class AppFixtures extends Fixture
             $hash = $this->encoder->encodePassword($user, 'password');
 
             $user->setEmail($faker->email)
-                ->setPassword($hash);
+                ->setPassword($hash)
+                ->setSavingPrice(mt_rand(0, 1000));
 
             $manager->persist($user);
 
@@ -47,6 +50,68 @@ class AppFixtures extends Fixture
                 $manager->persist($place);
             }
         }
+
+        $vtcDatas = [
+            [
+                'name' => 'Allocab',
+                'slug' => 'allocab',
+                'indemnification' => 160,
+                'pricePerKilometer' => 115,
+                'pricePerMinute' => 35,
+            ],
+            [
+                'name' => 'Kapten',
+                'slug' => 'kapten',
+                'indemnification' => 110,
+                'pricePerKilometer' => 110,
+                'pricePerMinute' => 28,
+            ],
+            [
+                'name' => 'Heetch',
+                'slug' => 'heetch',
+                'indemnification' => 150,
+                'pricePerKilometer' => 100,
+                'pricePerMinute' => 15,
+            ],
+            [
+                'name' => 'Marcel',
+                'slug' => 'marcel',
+                'indemnification' => 150,
+                'pricePerKilometer' => 110,
+                'pricePerMinute' => 32,
+            ],
+            [
+                'name' => 'Uber',
+                'slug' => 'uber',
+                'indemnification' => 120,
+                'pricePerKilometer' => 105,
+                'pricePerMinute' => 30,
+            ],
+        ];
+        foreach ($vtcDatas as $data) {
+            $vtc = new Vtc();
+            $vtc->setName($data['name'])
+                ->setSlug($data['slug'])
+                ->setIndemnification($data['indemnification'])
+                ->setPricePerKilometer($data['pricePerKilometer'])
+                ->setPricePerMinute($data['pricePerMinute']);
+
+            $manager->persist($vtc);
+        }
+
+        $optionsDatas = [
+            'green',
+            'berline',
+            'van',
+        ];
+
+        foreach ($optionsDatas as $data) {
+            $option = new Option();
+            $option->setSlug($data);
+
+            $manager->persist($option);
+        }
+
 
         $manager->flush();
     }
