@@ -24,13 +24,13 @@ class Place
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"places_read", "favs_read"})
+     * @Groups({"places_read", "favs_read", "ride_comparisons_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"places_read", "favs_read"})
+     * @Groups({"places_read", "favs_read", "ride_comparisons_read"})
      * @Assert\NotBlank(message="Le champ googlePlaceId est obligatoire")
      * @Assert\Type(type="string", message="Le champs googlePlaceId est une chaine de caractère")
      */

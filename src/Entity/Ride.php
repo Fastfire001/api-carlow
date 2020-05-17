@@ -7,6 +7,7 @@ use App\Repository\RideRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
@@ -18,34 +19,40 @@ class Ride
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"ride_comparisons_read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Vtc::class, inversedBy="rides")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"ride_comparisons_read"})
      */
     private $Vtc;
 
     /**
      * @ORM\ManyToMany(targetEntity=Option::class)
+     * @Groups({"ride_comparisons_read"})
      */
     private $Options;
 
     /**
      * @ORM\ManyToOne(targetEntity=Place::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"ride_comparisons_read"})
      */
     private $startPosition;
 
     /**
      * @ORM\ManyToOne(targetEntity=Place::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"ride_comparisons_read"})
      */
     private $endPosition;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"ride_comparisons_read"})
      */
     private $price;
 
@@ -63,6 +70,7 @@ class Ride
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"ride_comparisons_read"})
      */
     private $timeBeforeDeparture;
 

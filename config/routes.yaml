@@ -4,3 +4,8 @@
 
 api_login_check:
     path: /api/login_check
+
+ride_comparison:
+    path: /api/ride/comparison
+    controller: App\Controller\RideComparisonAction
+    methods: [GET]

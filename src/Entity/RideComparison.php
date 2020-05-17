@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\RideComparisonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RideComparisonRepository::class)
+ * @ApiResource(
+ *     normalizationContext={
+            "groups" = {"ride_comparisons_read"}
+ *     }
+ * )
  */
 class RideComparison
 {
@@ -16,11 +23,13 @@ class RideComparison
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"ride_comparisons_read"})
      */
     private $id;
 
     /**
      * @ORM\OneToMany(targetEntity=Ride::class, mappedBy="rideComparison")
+     * @Groups({"ride_comparisons_read"})
      */
     private $rides;
 

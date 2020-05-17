@@ -57,3 +57,4 @@ security:
          - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: ['GET', 'PUT', 'DELETE', 'PATCH'] }
          - { path: ^/api/place, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/api/fav, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/api/ride/comparison, roles: IS_AUTHENTICATED_FULLY }
