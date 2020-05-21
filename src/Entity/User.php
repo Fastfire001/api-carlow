@@ -2,12 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={
+            "groups" = {"users_read"}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email", message="Le cham email doit être unique")
  */
 class User implements UserInterface
 {
@@ -15,37 +26,51 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"users_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Email(checkMX=true)
+     * @Groups({"users_read"})
+     * @Assert\NotBlank(message="Le champ est mail est obligatoire")
+     * @Assert\Email(message="Le champ mail doit avoir un format valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"users_read"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le champ password est obligatoire")
      */
     private $password;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @ORM\OneToMany(targetEntity="App\Entity\Fav", mappedBy="user")
      */
-    private $firstname;
+    private $favs;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
-    private $lastname;
+    private $savingPrice;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Ride::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $rides;
+
+    public function __construct()
+    {
+        $this->favs = new ArrayCollection();
+        $this->rides = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,39 +151,75 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @return Collection|Fav[]
      */
-    public function getFirstname(): string
+    public function getFavs(): Collection
     {
-        return $this->firstname;
+        return $this->favs;
     }
 
-    /**
-     * @param string $firstname
-     * @return User
-     */
-    public function setFirstname(string $firstname): self
+    public function addFav(Fav $fav): self
     {
-        $this->firstname = $firstname;
+        if (!$this->favs->contains($fav)) {
+            $this->favs[] = $fav;
+            $fav->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFav(Fav $fav): self
+    {
+        if ($this->favs->contains($fav)) {
+            $this->favs->removeElement($fav);
+            // set the owning side to null (unless already changed)
+            if ($fav->getUser() === $this) {
+                $fav->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSavingPrice(): ?int
+    {
+        return $this->savingPrice;
+    }
+
+    public function setSavingPrice(int $savingPrice): self
+    {
+        $this->savingPrice = $savingPrice;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return Collection|Ride[]
      */
-    public function getLastname(): string
+    public function getRides(): Collection
     {
-        return $this->firstname;
+        return $this->rides;
     }
 
-    /**
-     * @param string $lastname
-     * @return User
-     */
-    public function setLastname(string $lastname): self
+    public function addRide(Ride $ride): self
     {
-        $this->lastname = $lastname;
+        if (!$this->rides->contains($ride)) {
+            $this->rides[] = $ride;
+            $ride->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRide(Ride $ride): self
+    {
+        if ($this->rides->contains($ride)) {
+            $this->rides->removeElement($ride);
+            // set the owning side to null (unless already changed)
+            if ($ride->getUser() === $this) {
+                $ride->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,1 @@
+[GEN SSH KEY FOR JWT AUTH](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md#generate-the-ssh-keys)
