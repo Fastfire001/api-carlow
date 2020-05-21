@@ -74,6 +74,12 @@ class Ride
      */
     private $timeBeforeDeparture;
 
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"ride_comparisons_read"})
+     */
+    private $emission;
+
     public function __construct()
     {
         $this->Options = new ArrayCollection();
@@ -190,6 +196,18 @@ class Ride
     public function setTimeBeforeDeparture(int $timeBeforeDeparture): self
     {
         $this->timeBeforeDeparture = $timeBeforeDeparture;
+
+        return $this;
+    }
+
+    public function getEmission(): ?int
+    {
+        return $this->emission;
+    }
+
+    public function setEmission(int $emission): self
+    {
+        $this->emission = $emission;
 
         return $this;
     }
