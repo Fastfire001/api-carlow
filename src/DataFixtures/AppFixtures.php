@@ -100,7 +100,6 @@ class AppFixtures extends Fixture
         }
 
         $optionsDatas = [
-            'green',
             'berline',
             'van',
         ];

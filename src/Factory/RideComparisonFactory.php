@@ -37,12 +37,22 @@ class RideComparisonFactory
 
         $this->entityManager->persist($rideComparison);
 
+        $maxPrice = 0;
         foreach ($this->vtcRepository->findAll() as $vtc) {
             $ride = $this->rideFactory->createRide($vtc, $distanceDuration, $startPlace, $endPlace);
+
+            if ($maxPrice < $ride->getPrice()) {
+                $maxPrice = $ride->getPrice();
+            }
+
             $rideComparison->addRide($ride);
 
             $this->entityManager->persist($ride);
         }
+
+        $rideComparison->setMaxPrice($maxPrice)
+            ->setDistance($distanceDuration['distance'])
+            ->setDuration($distanceDuration['duration']);
 
         $this->entityManager->flush();
 

@@ -70,6 +70,7 @@ class User implements UserInterface
     {
         $this->favs = new ArrayCollection();
         $this->rides = new ArrayCollection();
+        $this->savingPrice = 0;
     }
 
     public function getId(): ?int
