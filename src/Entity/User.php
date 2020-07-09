@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity("email", message="Le cham email doit être unique")
+ * @UniqueEntity("email", message="Le champ mail doit être unique")
  */
 class User implements UserInterface
 {
@@ -33,7 +33,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"users_read"})
-     * @Assert\NotBlank(message="Le champ est mail est obligatoire")
+     * @Assert\NotBlank(message="Le champ mail est obligatoire")
      * @Assert\Email(message="Le champ mail doit avoir un format valide")
      */
     private $email;
@@ -47,7 +47,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Le champ password est obligatoire")
+     * @Assert\NotBlank(message="Le champ mot de passe est obligatoire")
      */
     private $password;
 
@@ -65,6 +65,20 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Ride::class, mappedBy="user", orphanRemoval=true)
      */
     private $rides;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"users_read"})
+     * @Assert\NotBlank(message="Le champ prénom est obligatoire")
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"users_read"})
+     * @Assert\NotBlank(message="Le champ nom est obligatoire")
+     */
+    private $lastName;
 
     public function __construct()
     {
@@ -221,6 +235,30 @@ class User implements UserInterface
                 $ride->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
