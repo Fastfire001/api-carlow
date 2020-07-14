@@ -31,6 +31,8 @@ class AppFixtures extends Fixture
             $hash = $this->encoder->encodePassword($user, 'password');
 
             $user->setEmail($faker->email)
+                ->setFirstName($faker->firstName)
+                ->setLastName($faker->lastName)
                 ->setPassword($hash)
                 ->setSavingPrice(mt_rand(0, 1000));
 
