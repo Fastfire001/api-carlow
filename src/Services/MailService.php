@@ -35,7 +35,7 @@ class MailService
         $message = new Swift_Message($subject);
         $message->setFrom('carlow.pfe@gmail.com')
             ->setTo($to)
-            ->setBody($body);
+            ->setBody($body, 'text/html');
 
         return $this->mailer->send($message);
     }

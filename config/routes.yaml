@@ -10,6 +10,10 @@ ride_comparison:
     controller: App\Controller\RideComparisonAction
     methods: [GET]
 
-password_reset:
-    path: /api/password-reset/{email}
-    controller: App\Controller\SendResetPasswordMailAction
+password_reset_mail:
+    path: /api/password-reset/mail/{email}
+    controller: App\Controller\PasswordReset\SendResetPasswordMailAction
+
+password_reset_form:
+    path: /api/password-reset
+    controller: App\Controller\PasswordReset\ResetPasswordFormAction
