@@ -15,6 +15,11 @@ ride_comparison_v2:
     controller: App\Controller\RideComparisonV2Action
     methods: [GET]
 
+place_auto_complete:
+    path: /api/place/autocomplete/{address}
+    controller: App\Controller\PlaceAutoCompleteAction
+    methods: [GET]
+
 password_reset_mail:
     path: /api/password-reset/mail/{email}
     controller: App\Controller\PasswordReset\SendResetPasswordMailAction
