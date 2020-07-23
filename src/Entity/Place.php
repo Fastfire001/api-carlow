@@ -36,6 +36,14 @@ class Place
      */
     private $googlePlaceId;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"places_read", "favs_read", "ride_comparisons_read"})
+     * @Assert\NotBlank(message="Le champ name est obligatoire")
+     * @Assert\Type(type="string", message="Le champs name est une chaine de caractère")
+     */
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,6 +57,18 @@ class Place
     public function setGooglePlaceId($googlePlaceId): self
     {
         $this->googlePlaceId = $googlePlaceId;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
