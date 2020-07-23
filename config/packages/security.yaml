@@ -59,3 +59,4 @@ security:
          - { path: ^/api/place, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/api/fav, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/api/ride/comparison, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/api/ride/comparison-v2, roles: IS_AUTHENTICATED_FULLY }
