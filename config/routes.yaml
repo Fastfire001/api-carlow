@@ -27,3 +27,8 @@ password_reset_mail:
 password_reset_form:
     path: /api/password-reset
     controller: App\Controller\PasswordReset\ResetPasswordFormAction
+
+add_fav:
+    path: /api/fav
+    controller: App\Controller\AddFavAction
+    methods: [POST]
