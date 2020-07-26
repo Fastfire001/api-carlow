@@ -56,8 +56,9 @@ security:
          - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api/password-reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: ['GET', 'PUT'] }
-         - { path: ^/api/place, roles: IS_AUTHENTICATED_FULLY, methods: ['POST'] }
-         - { path: ^/api/fav, roles: IS_AUTHENTICATED_FULLY, methods: ['GET', 'POST'] }
+         - { path: ^/api/places, roles: IS_AUTHENTICATED_FULLY, methods: ['POST'] }
+         - { path: ^/api/favs, roles: IS_AUTHENTICATED_FULLY, methods: ['GET', 'POST'] }
+         - { path: ^/api/fav, roles: IS_AUTHENTICATED_FULLY, methods: ['POST'] }
          - { path: ^/api/ride/comparison, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/api/ride/comparison-v2, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/api/place/autocomplete, roles: IS_AUTHENTICATED_FULLY }
