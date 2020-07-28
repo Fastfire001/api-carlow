@@ -62,3 +62,4 @@ security:
          - { path: ^/api/ride/comparison, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/api/ride/comparison-v2, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/api/place/autocomplete, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/api/ride/order, roles: IS_AUTHENTICATED_FULLY }
