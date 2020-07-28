@@ -58,6 +58,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"users_read"})
      */
     private $savingPrice;
 

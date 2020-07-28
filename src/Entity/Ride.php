@@ -80,9 +80,15 @@ class Ride
      */
     private $emission;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isOrdered;
+
     public function __construct()
     {
         $this->Options = new ArrayCollection();
+        $this->setIsOrdered(false);
     }
 
     public function getId(): ?int
@@ -208,6 +214,18 @@ class Ride
     public function setEmission(int $emission): self
     {
         $this->emission = $emission;
+
+        return $this;
+    }
+
+    public function getIsOrdered(): ?bool
+    {
+        return $this->isOrdered;
+    }
+
+    public function setIsOrdered(bool $isOrdered): self
+    {
+        $this->isOrdered = $isOrdered;
 
         return $this;
     }

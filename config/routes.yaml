@@ -32,3 +32,7 @@ add_fav:
     path: /api/fav
     controller: App\Controller\AddFavAction
     methods: [POST]
+
+ride_order:
+    path: /api/ride/order
+    controller: App\Controller\OrderRideAction
