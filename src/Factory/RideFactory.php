@@ -25,6 +25,8 @@ class RideFactory
     private $berlineOption;
     /** @var Option|null */
     private $vanOption;
+    /** @var Option|null */
+    private $greenOption;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -37,6 +39,7 @@ class RideFactory
         $this->optionRepository = $optionRepository;
         $this->berlineOption = $this->optionRepository->findOneBy(['Slug' => 'berline']);
         $this->vanOption = $this->optionRepository->findOneBy(['Slug' => 'van']);
+        $this->greenOption = $this->optionRepository->findOneBy(['Slug' => 'green']);
     }
 
     public function createRide(Vtc $vtc, array $distanceDuration, Place $startPlace, Place $endPlace): Ride
@@ -51,13 +54,14 @@ class RideFactory
 
         $ride = new Ride();
 
+        $emission = mt_rand(160, 190);
         $ride->setUser($user)
             ->setStartPosition($startPlace)
             ->setEndPosition($endPlace)
             ->setPrice($price)
             ->setTimeBeforeDeparture(mt_rand(2, 10))
             ->setVtc($vtc)
-            ->setEmission(mt_rand(160, 190) * ($distanceDuration['distance'] / 1000));
+            ->setEmission($emission * ($distanceDuration['distance'] / 1000));
 
         $rand = mt_rand(1, 3);
 
@@ -68,6 +72,10 @@ class RideFactory
         } else {
             $ride->addOption($this->vanOption)
                 ->addOption($this->berlineOption);
+        }
+
+        if ($emission < 175) {
+            $ride->addOption($this->greenOption);
         }
 
         return $ride;

@@ -104,6 +104,7 @@ class AppFixtures extends Fixture
         $optionsDatas = [
             'berline',
             'van',
+            'green'
         ];
 
         foreach ($optionsDatas as $data) {
