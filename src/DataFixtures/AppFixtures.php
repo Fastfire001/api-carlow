@@ -42,7 +42,8 @@ class AppFixtures extends Fixture
                 $fav = new Fav();
                 $place = new Place();
 
-                $place->setGooglePlaceId('faker_' . $faker->uuid);
+                $place->setGooglePlaceId('faker_' . $faker->uuid)
+                    ->setName($faker->streetAddress);
 
                 $fav->setName($faker->streetName)
                     ->setUser($user)
