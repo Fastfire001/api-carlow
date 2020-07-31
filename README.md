@@ -2,82 +2,82 @@
 
 # Entitées
 
-##Place
-####id
-####googlePlaceId
+## Place
+* **id**
+* **googlePlaceId**
 [DOC GOOGLE](https://developers.google.com/places/place-id)
-####name
+* **name**
 Nom du lieu
 
-##Fav
-####id 
-####name
+## Fav
+* **id**
+* **name**
 (ex: maison, école...)
-####Place
+* **Place**
 Jointure avec la table Place, une Fav est forcement lié a une Place
-####user
+* **user**
 Jointure avec la table User, une Fav est forcement lié a un User
 
-##Vtc
-####id
-####name
+## Vtc
+* **id**
+* **name**
 Le nom du vtc
-####slug
-####indemnification
+* **slug**
+* **indemnification**
 Prix de base de la course en centimes (lorsque je prend un vtc dès le début on rajoute le prix "indemnification" a la course)
-####pricePerKilometer
+* **pricePerKilometer**
 Prix par kilomètre en centimes
-####pricePerMinute
+* **pricePerMinute**
 Prix par minute en centimes
-####rides
+* **rides**
 Liste de toutes les courses recherché ou commandé pour ce vtc (si je fais une comparaison de prix sans forcement commander, on verra quand même l'entité Ride ajouté a cette collection)
 
-##Option
-####id
-####slug
+## Option
+* **id**
+* **slug**
 
-##RideComparison
-####id
-####rides
+## RideComparison
+* **id**
+* **rides**
 Listes de toutes les courses qui sont comparé dans l'entité RideComparison en question (Un RideComparison compare plusieurs Ride)
-####maxPrice
+* **maxPrice**
 Le prix de la course la plus cher (utilisé pour modifier le savingPrice du champs user
-####distance
+* **distance**
 La distance entre le début de la course et la fin
-####duration
+* **duration**
 La durée entre le début de la course et la fin
 
-##Ride
-####id
-####Vtc
+## Ride
+* **id**
+* **Vtc**
 Le Vtc de la course
-####Options
+* **Options**
 La liste des options pour cette course (ex: green, van, berline...)
-####startPosition
+* **startPosition**
 La Place du début
-####endPosition
+* **endPosition**
 la Place de la fin
-####price
+* **price**
 Le prix total de la course
-####user
+* **user**
 Le User qui a généré cette course
-####timeBeforeDeparture
+* **timeBeforeDeparture**
 Le temps que va mettre le chauffeur Vtc à arriver au départ (Le filtre temps ici)
-####emission
+* **emission**
 La quantité de CO2 rejeté
 
-##User
-####id
-####email
-####roles
-####password
-####favs
+## User
+* **id**
+* **email**
+* **roles**
+* **password**
+* **favs**
 Listes des Fav d'un User
-####savingPrice
+* **savingPrice**
 Le prix qu'un User a économisé depuis le début
-####rides
+* **rides**
 La liste des courses qu'il a comparé
-####firstName
-####lastName
-####resetToken
+* **firstName**
+* **lastName**
+* **resetToken**
 Token utilisé dans le form mot de passe oublié
